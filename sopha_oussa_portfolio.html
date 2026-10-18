@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="km" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>សុផា ឧស្សាហ៏ | Full-Stack Developer & UI/UX Specialist</title>
+    
+    <!-- Google Fonts: Kantumruy Pro & Fira Code for code blocks -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Kantumruy Pro"', 'sans-serif'],
+                        mono: ['"Fira Code"', 'monospace']
+                    },
+                    colors: {
+                        brand: {
+                            cyan: '#38bdf8',
+                            indigo: '#818cf8',
+                            blue: '#2563eb',
+                            emerald: '#059669',
+                            darkBg: '#0b0f17',
+                            darkCard: '#161f30',
+                            lightBg: '#f8fafc',
+                            lightCard: '#ffffff'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { opacity: '0.4', filter: 'blur(20px)' },
+                            '100%': { opacity: '0.8', filter: 'blur(30px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base typography & Khmer line-height setup */
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            line-height: 1.75;
+            letter-spacing: 0.01em;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Glassmorphism custom utilities */
+        .glass-card {
+            background: rgba(22, 31, 48, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .light .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-nav {
+            background: rgba(11, 15, 23, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .light .glass-nav {
+            background: rgba(248, 250, 252, 0.85);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        /* Animated border glowing effect */
+        .glow-border {
+            position: relative;
+        }
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.4), rgba(129, 140, 248, 0.1), rgba(5, 150, 105, 0.4));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0.6;
+            transition: opacity 0.3s ease;
+        }
+        .glow-border:hover::before {
+            opacity: 1;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f17;
+        }
+        .light ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        .light ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        /* Scroll reveal animation styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Grid background pattern */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+        .light .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+
+<body class="bg-brand-darkBg text-slate-100 dark:bg-brand-darkBg dark:text-slate-100 light:bg-brand-lightBg light:text-slate-900 min-h-screen relative overflow-x-hidden antialiased selection:bg-sky-500 selection:text-white">
+
+    <!-- Ambient Glowing Background Blobs -->
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-sky-500/15 dark:bg-sky-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-indigo-500/15 dark:bg-indigo-500/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-500/15 dark:bg-emerald-500/15 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 4s;"></div>
+        <div class="absolute inset-0 bg-grid-pattern opacity-60"></div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Brand Logo -->
+            <a href="USA.jpg" class="flex items-center gap-2 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 via-indigo-500 to-emerald-400 p-[2px] transition-transform duration-300 group-hover:scale-105">
+                    <div class="w-full h-full bg-brand-darkBg dark:bg-brand-darkBg light:bg-white rounded-[10px] flex items-center justify-center">
+                        <span class="font-mono text-sky-400 font-bold text-lg">&lt;S/&gt;</span>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-lg tracking-wide bg-gradient-to-r from-sky-400 via-indigo-300 to-emerald-400 bg-clip-text text-transparent">សុផា ឧស្សាហ៏</span>
+                    <span class="text-[10px] text-slate-400 font-mono tracking-widest uppercase -mt-1">&lt;sopha.dev/&gt;</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-1 text-sm font-medium text-slate-300 dark:text-slate-300 light:text-slate-700">
+                <a href="#about" class="px-4 py-2 rounded-lg hover:text-sky-400 dark:hover:text-sky-400 light:hover:text-blue-600 transition-colors">អំពីខ្ញុំ</a>
+                <a href="#skills" class="px-4 py-2 rounded-lg hover:text-sky-400 dark:hover:text-sky-400 light:hover:text-blue-600 transition-colors">ជំនាញ</a>
+                <a href="#projects" class="px-4 py-2 rounded-lg hover:text-sky-400 dark:hover:text-sky-400 light:hover:text-blue-600 transition-colors">គម្រោង</a>
+                <a href="#experience" class="px-4 py-2 rounded-lg hover:text-sky-400 dark:hover:text-sky-400 light:hover:text-blue-600 transition-colors">បទពិសោធន៍</a>
+                <a href="#contact" class="px-4 py-2 rounded-lg hover:text-sky-400 dark:hover:text-sky-400 light:hover:text-blue-600 transition-colors">ទំនាក់ទំនង</a>
+            </nav>
+
+            <!-- Actions Right (Theme Toggle & CTA) -->
+            <div class="flex items-center gap-3">
+                
+                <!-- Dark/Light Mode Toggle -->
+                <button id="themeToggle" aria-label="Toggle Dark or Light Theme" class="p-2.5 rounded-xl border border-slate-700/50 dark:border-slate-700/50 light:border-slate-300 bg-slate-800/40 dark:bg-slate-800/40 light:bg-slate-100 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-sky-400 transition-all duration-300 hover:scale-105 active:scale-95">
+                    <!-- Sun Icon (Light Mode) -->
+                    <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <!-- Moon Icon (Dark Mode) -->
+                    <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                    </svg>
+                </button>
+
+                <!-- Action CTA -->
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 text-white font-medium text-sm shadow-lg shadow-sky-500/20 hover:shadow-sky-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200">
+                    <span>ផ្ញើសារ</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" aria-label="Toggle Mobile Menu" class="md:hidden p-2.5 rounded-xl border border-slate-700/50 dark:border-slate-700/50 light:border-slate-300 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Nav Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden border-b border-slate-800 dark:border-slate-800 light:border-slate-200 bg-brand-darkBg/95 dark:bg-brand-darkBg/95 light:bg-white/95 px-4 pt-2 pb-6 space-y-2 text-center">
+            <a href="#about" class="mobile-link block py-2.5 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-sky-400 font-medium">អំពីខ្ញុំ</a>
+            <a href="#skills" class="mobile-link block py-2.5 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-sky-400 font-medium">ជំនាញ</a>
+            <a href="#projects" class="mobile-link block py-2.5 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-sky-400 font-medium">គម្រោង</a>
+            <a href="#experience" class="mobile-link block py-2.5 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-sky-400 font-medium">បទពិសោធន៍</a>
+            <a href="#contact" class="mobile-link block py-2.5 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:text-sky-400 font-medium">ទំនាក់ទំនង</a>
+        </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 space-y-32">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-[85vh] flex flex-col justify-center pt-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Text Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left reveal active">
+                    
+                    <!-- Availability Badge -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs sm:text-sm font-medium tracking-wide shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 -ml-4"></span>
+                        <span>ត្រៀមខ្លួនសម្រាប់ឱកាសការងារថ្មីៗ (Available for Hire)</span>
+                    </div>
+
+                    <!-- Main Title & Name -->
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white light:text-slate-900 leading-tight">
+                        សួស្តី! ខ្ញុំបាទ <br class="hidden sm:inline" />
+                        <span class="bg-gradient-to-r from-sky-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent">សុផា ឧស្សាហ៏</span>
+                    </h1>
+
+                    <p class="text-lg sm:text-xl font-semibold text-sky-400 dark:text-sky-400 light:text-blue-600">
+                        Full-Stack Developer & UI/UX Specialist
+                    </p>
+
+                    <!-- Hero Subtitle / Tagline -->
+                    <p class="text-base sm:text-lg text-slate-400 dark:text-slate-400 light:text-slate-600 max-w-2xl leading-relaxed">
+                        បង្កើតដំណោះស្រាយបច្ចេកវិទ្យាប្រកបដោយប្រណីតភាព ល្បឿនលឿន និងបទពិសោធន៍ប្រកបដោយភាពច្នៃប្រឌិត។ ខ្ញុំផ្តោតលើការកសាង Web Applications និងរចនាសម្ព័ន្ធ Cloud ដែលមានគុណភាពខ្ពស់។
+                    </p>
+
+                    <!-- Hero Action Buttons -->
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#projects" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-emerald-500 text-white font-semibold text-base shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2">
+                            <span>ពិនិត្យមើលគម្រោង</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                        
+                        <a href="#contact" class="px-6 py-3.5 rounded-xl border border-slate-700 dark:border-slate-700 light:border-slate-300 bg-slate-800/40 dark:bg-slate-800/40 light:bg-slate-100 text-slate-200 dark:text-slate-200 light:text-slate-800 hover:border-sky-400 font-semibold text-base hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-2">
+                            <span>ទាញយក CV</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        </a>
+                    </div>
+
+                    <!-- Key Stats Counter Ribbon -->
+                    <div class="pt-8 border-t border-slate-800/80 dark:border-slate-800/80 light:border-slate-200/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-sky-400 font-mono">៥+</div>
+                            <div class="text-xs sm:text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 font-medium mt-0.5">ឆ្នាំបទពិសោធន៍</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-indigo-400 font-mono">៣០+</div>
+                            <div class="text-xs sm:text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 font-medium mt-0.5">គម្រោងសម្រេចបាន</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">៩៩.៩%</div>
+                            <div class="text-xs sm:text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 font-medium mt-0.5">កូដមានគុណភាពខ្ពស់</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Hero Visual / Interactive Avatar & Badge Frame -->
+                <div class="lg:col-span-5 flex justify-center reveal">
+                    <div class="relative w-full max-w-md">
+                        
+                        <!-- Glowing backdrop ring -->
+                        <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 opacity-30 blur-2xl animate-pulse-slow"></div>
+
+                        <!-- Card Container -->
+                        <div class="relative glass-card rounded-3xl p-6 glow-border space-y-6">
+                            
+                            <!-- Profile Header -->
+                            <div class="flex items-center gap-4">
+                                <div class="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-sky-400/50 p-1 bg-slate-900">
+                                    <img src="USA.jpg" alt="សុផា ឧស្សាហ៏" class="w-full h-full object-cover rounded-xl" />
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">សុផា ឧស្សាហ៏</h3>
+                                    <p class="text-xs text-sky-400 font-mono">@oussa_sopha</p>
+                                    <div class="flex items-center gap-1.5 mt-1 text-xs text-slate-400">
+                                        <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                                        <span>ភ្នំពេញ, កម្ពុជា 🇰🇭</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Floating Tech Chips -->
+                            <div class="space-y-2">
+                                <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">បច្ចេកវិទ្យាស្នូល (Core Stack):</span>
+                                <div class="flex flex-wrap gap-2 pt-1">
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-sky-500/10 text-sky-400 border border-sky-500/20">React / Next.js</span>
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Node.js / Express</span>
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">TypeScript</span>
+                                    <span class="px-2.5 py-1 rounded-lg text-xs font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">Docker & AWS</span>
+                                </div>
+                            </div>
+
+                            <!-- Quick Code Teaser -->
+                            <div class="p-3.5 rounded-xl bg-slate-950/80 dark:bg-slate-950/80 light:bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
+                                <div class="flex items-center justify-between text-slate-500 text-[10px] pb-2 border-b border-slate-800 mb-2">
+                                    <span>status.ts</span>
+                                    <span class="text-emerald-400">● Live</span>
+                                </div>
+                                <p><span class="text-purple-400">const</span> developer = {</p>
+                                <p class="pl-4"><span class="text-sky-300">name</span>: <span class="text-emerald-300">'សុផា ឧស្សាហ៏'</span>,</p>
+                                <p class="pl-4"><span class="text-sky-300">passion</span>: <span class="text-emerald-300">'Clean Code & UX'</span>,</p>
+                                <p class="pl-4"><span class="text-sky-300">coffeeLevel</span>: <span class="text-amber-400">Infinity</span></p>
+                                <p>};</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ABOUT ME SECTION (BENTO GRID) -->
+        <section id="about" class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto space-y-3 reveal">
+                <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">អំពីខ្ញុំ (About Me)</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white light:text-slate-900">
+                    ទស្សនវិជ្ជានៃការអភិវឌ្ឍន៍ និងគំនិតច្នៃប្រឌិត
+                </h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Bento Grid Container -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 pt-4">
+                
+                <!-- Bento 1: Detailed Bio -->
+                <div class="md:col-span-7 glass-card rounded-3xl p-6 sm:p-8 glow-border flex flex-col justify-between space-y-4 reveal">
+                    <div class="space-y-4">
+                        <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">ជីវប្រវត្តិ និងទស្សនវិជ្ជាសរសេរកូដ</h3>
+                        <p class="text-slate-300 dark:text-slate-300 light:text-slate-700 leading-relaxed text-base">
+                            ខ្ញុំបាទឈ្មោះ **សុផា ឧស្សាហ៏** ជាអ្នកអភិវឌ្ឍន៍កម្មវិធី Full-Stack ដែលមានបទពិសោធន៍ជាង ៥ ឆ្នាំ ក្នុងការកសាង Web Applications និង Mobile Apps។ ខ្ញុំជឿជាក់ថា កូដដែលមានគុណភាព មិនត្រឹមតែដំណើរការបានលឿនប៉ុណ្ណោះទេ ប៉ុន្តែត្រូវតែងាយស្រួលក្នុងការថែទាំ និងផ្តល់បទពិសោធន៍ប្រើប្រាស់ (User Experience) ដ៏ល្អបំផុត។
+                        </p>
+                        <p class="text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed text-sm">
+                            ការងាររបស់ខ្ញុំផ្តោតលើការរួមបញ្ចូលគ្នារវាង **Modern Architecture**, **High Performance API**, និង **Modern UI Components** ដើម្បីជួយឱ្យអាជីវកម្ម និងស្ថាប័នសម្រេចបាននូវគោលដៅបច្ចេកវិទ្យារបស់ពួកគេ។
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 pt-4 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
+                        <div class="flex items-center gap-2 text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700">
+                            <span class="w-2 h-2 rounded-full bg-sky-400"></span> ស្ថាបត្យកម្ម Microservices
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700">
+                            <span class="w-2 h-2 rounded-full bg-indigo-400"></span> ការរចនា UI/UX
+                        </div>
+                        <div class="flex items-center gap-2 text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> Cloud Devops & CI/CD
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bento 2: Interactive Terminal Widget -->
+                <div class="md:col-span-5 glass-card rounded-3xl p-6 glow-border flex flex-col justify-between reveal">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800 dark:border-slate-800 light:border-slate-200">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                        </div>
+                        <span class="text-xs font-mono text-slate-400">sopha-cli v2.4.0</span>
+                    </div>
+
+                    <div class="my-4 font-mono text-xs sm:text-sm space-y-3 text-slate-300 dark:text-slate-300 light:text-slate-800 overflow-x-auto">
+                        <p class="text-sky-400">$ sopha --get-profile</p>
+                        <div class="pl-2 space-y-1 text-slate-400 dark:text-slate-400 light:text-slate-600">
+                            <p><span class="text-indigo-400">name:</span> "សុផា ឧស្សាហ៏"</p>
+                            <p><span class="text-indigo-400">title:</span> "Senior Full-Stack Engineer"</p>
+                            <p><span class="text-indigo-400">location:</span> "Phnom Penh, Cambodia"</p>
+                            <p><span class="text-indigo-400">languages:</span> ["Khmer (Native)", "English (Fluent)"]</p>
+                            <p><span class="text-indigo-400">status:</span> <span class="text-emerald-400">"Open for Projects & Consulting"</span></p>
+                        </div>
+                        <p class="text-slate-500 animate-pulse">&gt; _ Type 'help' for commands</p>
+                    </div>
+
+                    <div class="pt-2">
+                        <a href="#contact" class="w-full py-2.5 rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400 text-xs font-mono font-semibold flex items-center justify-center gap-2 hover:bg-sky-500 hover:text-white transition-all">
+                            <span>ពិនិត្យមើលលម្អិត &gt;</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Bento 3: Location & Time Zone -->
+                <div class="md:col-span-5 glass-card rounded-3xl p-6 glow-border flex items-center gap-5 reveal">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 flex-shrink-0">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <div>
+                        <span class="text-xs font-mono text-slate-400 uppercase">ទីតាំងបច្ចុប្បន្ន</span>
+                        <h4 class="text-lg font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">រាជធានីភ្នំពេញ, កម្ពុជា 🇰🇭</h4>
+                        <p class="text-xs text-slate-400 mt-1">ម៉ោងតំបន់: GMT+7 (Asia/Phnom_Penh)</p>
+                    </div>
+                </div>
+
+                <!-- Bento 4: Quality & Standards Banner -->
+                <div class="md:col-span-7 glass-card rounded-3xl p-6 glow-border flex items-center justify-between reveal">
+                    <div class="space-y-1">
+                        <span class="text-xs font-mono text-emerald-400 uppercase">ស្តង់ដារការងារ</span>
+                        <h4 class="text-lg font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">100% Mobile Responsive & High Performance</h4>
+                        <p class="text-xs text-slate-400">ប្រព័ន្ធសុវត្ថិភាពខ្ពស់ SEO Optimized និង Scalability</p>
+                    </div>
+                    <div class="hidden sm:block">
+                        <span class="px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-xs font-bold">Grade A+</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SKILLS & TECH STACK SECTION -->
+        <section id="skills" class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto space-y-3 reveal">
+                <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">ជំនាញ & បច្ចេកវិទ្យា (Skills & Tech Stack)</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white light:text-slate-900">
+                    ឧបករណ៍ និងបច្ចេកវិទ្យាដែលខ្ញុំប្រកបដោយជំនាញ
+                </h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Skills Grid Categories -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+                
+                <!-- Category 1: Frontend -->
+                <div class="glass-card rounded-3xl p-6 glow-border space-y-4 hover:translate-y-[-4px] transition-transform duration-300 reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">Frontend Development</h3>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>React.js / Next.js</span>
+                                <span class="text-sky-400">95%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-sky-400 rounded-full" style="width: 95%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Vue.js / Nuxt</span>
+                                <span class="text-sky-400">85%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-sky-400 rounded-full" style="width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>TypeScript</span>
+                                <span class="text-sky-400">90%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-sky-400 rounded-full" style="width: 90%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Tailwind CSS</span>
+                                <span class="text-sky-400">98%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-sky-400 rounded-full" style="width: 98%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 2: Backend -->
+                <div class="glass-card rounded-3xl p-6 glow-border space-y-4 hover:translate-y-[-4px] transition-transform duration-300 reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">Backend Systems</h3>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Node.js / Express</span>
+                                <span class="text-indigo-400">92%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-indigo-400 rounded-full" style="width: 92%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>NestJS</span>
+                                <span class="text-indigo-400">88%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-indigo-400 rounded-full" style="width: 88%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Python / FastAPI</span>
+                                <span class="text-indigo-400">80%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-indigo-400 rounded-full" style="width: 80%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Go (Golang)</span>
+                                <span class="text-indigo-400">75%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-indigo-400 rounded-full" style="width: 75%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 3: Database & Cloud -->
+                <div class="glass-card rounded-3xl p-6 glow-border space-y-4 hover:translate-y-[-4px] transition-transform duration-300 reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">Database & Cloud</h3>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>PostgreSQL / MySQL</span>
+                                <span class="text-emerald-400">90%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-emerald-400 rounded-full" style="width: 90%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>MongoDB / Redis</span>
+                                <span class="text-emerald-400">85%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-emerald-400 rounded-full" style="width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Docker & Kubernetes</span>
+                                <span class="text-emerald-400">82%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-emerald-400 rounded-full" style="width: 82%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>AWS & Firebase</span>
+                                <span class="text-emerald-400">88%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-emerald-400 rounded-full" style="width: 88%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category 4: Tools & UI/UX -->
+                <div class="glass-card rounded-3xl p-6 glow-border space-y-4 hover:translate-y-[-4px] transition-transform duration-300 reveal">
+                    <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">Tools & UI/UX</h3>
+                    
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Figma Prototyping</span>
+                                <span class="text-amber-400">90%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-amber-400 rounded-full" style="width: 90%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Git & GitHub Actions</span>
+                                <span class="text-amber-400">95%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-amber-400 rounded-full" style="width: 95%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>Linux Administration</span>
+                                <span class="text-amber-400">85%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-amber-400 rounded-full" style="width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-mono mb-1 text-slate-300 dark:text-slate-300 light:text-slate-700">
+                                <span>RESTful & GraphQL</span>
+                                <span class="text-amber-400">92%</span>
+                            </div>
+                            <div class="w-full h-1.5 rounded-full bg-slate-800 overflow-hidden"><div class="h-full bg-amber-400 rounded-full" style="width: 92%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FEATURED PROJECTS SECTION -->
+        <section id="projects" class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto space-y-3 reveal">
+                <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">ស្នាដៃ & គម្រោង (Featured Work)</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white light:text-slate-900">
+                    គម្រោងលេចធ្លោដែលបានអភិវឌ្ឍន៍
+                </h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Project Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 pt-2 reveal">
+                <button class="project-filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all bg-sky-500 text-white" data-filter="all">ទាំងអស់</button>
+                <button class="project-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all border border-slate-700 dark:border-slate-700 light:border-slate-300 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:border-sky-400" data-filter="fullstack">Full-Stack</button>
+                <button class="project-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all border border-slate-700 dark:border-slate-700 light:border-slate-300 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:border-sky-400" data-filter="mobile">Mobile & AI</button>
+                <button class="project-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all border border-slate-700 dark:border-slate-700 light:border-slate-300 text-slate-300 dark:text-slate-300 light:text-slate-700 hover:border-sky-400" data-filter="cloud">Cloud System</button>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                
+                <!-- Project Card 1 -->
+                <div class="project-card glass-card rounded-3xl overflow-hidden glow-border flex flex-col justify-between group reveal" data-category="fullstack">
+                    <div class="relative overflow-hidden h-60">
+                        <img src="https://images.unsplash.com/photo-1556742049-0a67d2685732?auto=format&fit=crop&w=800&q=80" alt="E-Commerce Platform" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-transparent opacity-80"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-500/20 text-sky-300 backdrop-blur-md border border-sky-500/30">Full-Stack</span>
+                    </div>
+
+                    <div class="p-6 sm:p-8 space-y-4 flex-grow flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <h3 class="text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900 group-hover:text-sky-400 transition-colors">
+                                ១. ប្រព័ន្ធគ្រប់គ្រងពាណិជ្ជកម្មតាមអ៊ិនធឺណិត (E-Commerce Platform)
+                            </h3>
+                            <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                                វេទិកាទិញលក់ទំនិញអនឡាញដែលមានមុខងារទូទាត់ប្រាក់ (Payment Gateway) ការគ្រប់គ្រងស្តុកទំនិញ (Inventory Management) និងប្រព័ន្ធរបាយការណ៍លក់តាមពេលវេលាជាក់ស្តែង (Real-time Analytics)។
+                            </p>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex flex-wrap gap-2 font-mono text-xs">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-sky-400 border border-slate-700">Next.js</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-indigo-400 border border-slate-700">NestJS</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 border border-slate-700">PostgreSQL</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-purple-400 border border-slate-700">Tailwind</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
+                                <button onclick="openModal('ប្រព័ន្ធគ្រប់គ្រងពាណិជ្ជកម្ម', 'វេទិកាទិញលក់ទំនិញអនឡាញ ដែលមានសមត្ថភាពទ្រទ្រង់ការទូទាត់ KHQR និង Visa/Mastercard ជាមួយ Dashboard គ្រប់គ្រងទំនើប។', ['Next.js', 'NestJS', 'PostgreSQL', 'Redis'])" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1">
+                                    <span>មើលលម្អិត</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                                <a href="https://github.com" target="_blank" class="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1">
+                                    <span>GitHub Code</span>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card glass-card rounded-3xl overflow-hidden glow-border flex flex-col justify-between group reveal" data-category="fullstack">
+                    <div class="relative overflow-hidden h-60">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Smart School System" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-transparent opacity-80"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-500/20 text-indigo-300 backdrop-blur-md border border-indigo-500/30">Enterprise</span>
+                    </div>
+
+                    <div class="p-6 sm:p-8 space-y-4 flex-grow flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <h3 class="text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900 group-hover:text-sky-400 transition-colors">
+                                ២. កម្មវិធីគ្រប់គ្រងសាលារៀនវៃឆ្លាត (Smart School System)
+                            </h3>
+                            <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                                ប្រព័ន្ធគ្រប់គ្រងវត្តមានសិស្ស និទ្ទេសប្រឡង កាលវិភាគសិក្សា និងប្រព័ន្ធទំនាក់ទំនងរវាងមាតាបិតានិងសាលារៀនតាមរយៈ Mobile App។
+                            </p>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex flex-wrap gap-2 font-mono text-xs">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-sky-400 border border-slate-700">React Native</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-indigo-400 border border-slate-700">Node.js</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 border border-slate-700">MongoDB</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-amber-400 border border-slate-700">GraphQL</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
+                                <button onclick="openModal('កម្មវិធីសាលារៀនវៃឆ្លាត', 'ប្រព័ន្ធគ្រប់គ្រងការសិក្សា Smart School ដែលអនុញ្ញាតឱ្យលោកគ្រូអ្នកគ្រូកត់វត្តមាន និងផ្ញើសារដំណឹងទៅអាណាព្យាបាលភ្លាមៗ។', ['React Native', 'Node.js', 'MongoDB'])" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1">
+                                    <span>មើលលម្អិត</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                                <a href="https://github.com" target="_blank" class="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1">
+                                    <span>GitHub Code</span>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card glass-card rounded-3xl overflow-hidden glow-border flex flex-col justify-between group reveal" data-category="mobile">
+                    <div class="relative overflow-hidden h-60">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="AI Financial Analytics" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-transparent opacity-80"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-500/20 text-emerald-300 backdrop-blur-md border border-emerald-500/30">AI & Analytics</span>
+                    </div>
+
+                    <div class="p-6 sm:p-8 space-y-4 flex-grow flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <h3 class="text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900 group-hover:text-sky-400 transition-colors">
+                                ៣. ប្រព័ន្ធហិរញ្ញវត្ថុ និងវិភាគទិន្នន័យ AI (AI Financial Analytics)
+                            </h3>
+                            <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                                កម្មវិធីទស្សន៍ទាយនិន្នាការហិរញ្ញវត្ថុ គ្រប់គ្រងចំណាយ និងវិភាគទិន្នន័យអាជីវកម្ម ដោយប្រើប្រាស់ Machine Learning និង Visual Interactive Charts។
+                            </p>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex flex-wrap gap-2 font-mono text-xs">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-sky-400 border border-slate-700">Python</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-indigo-400 border border-slate-700">FastAPI</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 border border-slate-700">Vue 3</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-purple-400 border border-slate-700">TensorFlow</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
+                                <button onclick="openModal('ប្រព័ន្ធវិភាគ AI', 'កម្មវិធីព្យាករណ៍ចំណូលចំណាយស្វ័យប្រវត្តសម្រាប់សហគ្រាសធុនតូច និងមធ្យម (SME)។', ['Python', 'FastAPI', 'Vue 3', 'TensorFlow'])" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1">
+                                    <span>មើលលម្អិត</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                                <a href="https://github.com" target="_blank" class="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1">
+                                    <span>GitHub Code</span>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 4 -->
+                <div class="project-card glass-card rounded-3xl overflow-hidden glow-border flex flex-col justify-between group reveal" data-category="cloud">
+                    <div class="relative overflow-hidden h-60">
+                        <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80" alt="Logistics Express App" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-transparent opacity-80"></div>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-500/20 text-purple-300 backdrop-blur-md border border-purple-500/30">Logistics Cloud</span>
+                    </div>
+
+                    <div class="p-6 sm:p-8 space-y-4 flex-grow flex flex-col justify-between">
+                        <div class="space-y-2">
+                            <h3 class="text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900 group-hover:text-sky-400 transition-colors">
+                                ៤. កម្មវិធីដឹកជញ្ជូន និងវេទិកាសេវាកម្ម (Logistics & Express)
+                            </h3>
+                            <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                                ប្រព័ន្ធតាមដានទំនិញតាមរយៈ GPS Live Tracking, ការចាត់ចែងអ្នកដឹកជញ្ជូន (Driver Dispatch System) និង API Integration សម្រាប់ក្រុមហ៊ុនដឹកជញ្ជូន។
+                            </p>
+                        </div>
+
+                        <div class="space-y-4 pt-2">
+                            <div class="flex flex-wrap gap-2 font-mono text-xs">
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-sky-400 border border-slate-700">Flutter</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-indigo-400 border border-slate-700">Go (Golang)</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-emerald-400 border border-slate-700">Docker</span>
+                                <span class="px-2.5 py-1 rounded-md bg-slate-800 text-amber-400 border border-slate-700">AWS EC2</span>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-800/60 dark:border-slate-800/60 light:border-slate-200">
+                                <button onclick="openModal('កម្មវិធីដឹកជញ្ជូន Logistics', 'ប្រព័ន្ធគ្រប់គ្រងការដឹកជញ្ជូនរហ័សដែលមាន Live Real-time Map Navigation និង SMS notifications។', ['Flutter', 'Golang', 'Docker', 'AWS'])" class="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1">
+                                    <span>មើលលម្អិត</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                                <a href="https://github.com" target="_blank" class="text-xs font-mono text-slate-400 hover:text-white flex items-center gap-1">
+                                    <span>GitHub Code</span>
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- WORK EXPERIENCE TIMELINE SECTION -->
+        <section id="experience" class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto space-y-3 reveal">
+                <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">បទពិសោធន៍ធ្វើការ (Work Experience)</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white light:text-slate-900">
+                    ដំណើរផ្លូវវិជ្ជាជីវៈ និងបទពិសោធន៍
+                </h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Vertical Timeline Container -->
+            <div class="max-w-4xl mx-auto relative pl-6 sm:pl-8 border-l-2 border-slate-800 dark:border-slate-800 light:border-slate-300 space-y-12 pt-4">
+                
+                <!-- Timeline Item 1 -->
+                <div class="relative group reveal">
+                    <!-- Glowing Dot -->
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full bg-sky-500 border-4 border-brand-darkBg dark:border-brand-darkBg light:border-white shadow-md shadow-sky-500/50 group-hover:scale-125 transition-transform"></div>
+                    
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 glow-border space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">Senior Full-Stack Developer</h3>
+                                <p class="text-sky-400 font-medium text-sm">Tech Company A (រាជធានីភ្នំពេញ)</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-mono bg-sky-500/10 text-sky-400 border border-sky-500/20">២០២៣ - បច្ចុប្បន្ន</span>
+                        </div>
+                        <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                            ដឹកនាំក្រុមអភិវឌ្ឍន៍កម្មវិធីក្នុងការបង្កើត Enterprise Web Applications សម្រាប់អតិថិជនជាតិ និងអន្តរជាតិ។ ទទួលខុសត្រូវលើ System Architecture, Microservices Optimization, និងការបណ្តុះបណ្តាល Junior Developers។
+                        </p>
+                        <ul class="list-disc list-inside text-xs sm:text-sm text-slate-400 space-y-1">
+                            <li>កាត់បន្ថយពេលវេលា Load ទិន្នន័យបាន ៤៥% តាមរយៈ Redis Caching</li>
+                            <li>គ្រប់គ្រង និងដំឡើង CI/CD Pipelines ដោយប្រើ Docker & GitHub Actions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative group reveal">
+                    <!-- Glowing Dot -->
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full bg-indigo-500 border-4 border-brand-darkBg dark:border-brand-darkBg light:border-white shadow-md shadow-indigo-500/50 group-hover:scale-125 transition-transform"></div>
+                    
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 glow-border space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">Frontend Lead</h3>
+                                <p class="text-indigo-400 font-medium text-sm">Digital Agency B (រាជធានីភ្នំពេញ)</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">២០២១ - ២០២៣</span>
+                        </div>
+                        <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                            រចនា និងអភិវឌ្ឍន៍ User Interface សម្រាប់ Web Apps ជាង ១៥ គម្រោង ដោយប្រើ React, Vue.js និង Tailwind CSS។ សហការយ៉ាងជិតស្និទ្ធជាមួយក្រុម UI/UX Designer។
+                        </p>
+                        <ul class="list-disc list-inside text-xs sm:text-sm text-slate-400 space-y-1">
+                            <li>បង្កើត Design System Component Library ដែលប្រើប្រាស់ឡើងវិញបានច្រើនលើក</li>
+                            <li>បង្កើនពិន្ទុ Google Lighthouse SEO និង Performance ដល់ ៩៥+</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative group reveal">
+                    <!-- Glowing Dot -->
+                    <div class="absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full bg-emerald-500 border-4 border-brand-darkBg dark:border-brand-darkBg light:border-white shadow-md shadow-emerald-500/50 group-hover:scale-125 transition-transform"></div>
+                    
+                    <div class="glass-card rounded-3xl p-6 sm:p-8 glow-border space-y-3">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-xl sm:text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">Full-Stack Developer</h3>
+                                <p class="text-emerald-400 font-medium text-sm">Startup Hub (រាជធានីភ្នំពេញ)</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">២០១៩ - ២០២១</span>
+                        </div>
+                        <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                            សរសេរកូដ Full-stack សម្រាប់ MVP Startup Projects ផ្សេងៗ ដោយសរសេរ RESTful APIs និងរៀបចំ Database Scheme ឱ្យមានប្រសិទ្ធភាព។
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT & FORM SECTION -->
+        <section id="contact" class="space-y-8">
+            <div class="text-center max-w-3xl mx-auto space-y-3 reveal">
+                <span class="text-xs font-mono uppercase tracking-widest text-sky-400 font-semibold">ទំនាក់ទំនង (Contact)</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900 dark:text-white light:text-slate-900">
+                    តើអ្នកមានគម្រោងចង់សហការដែរឬទេ?
+                </h2>
+                <p class="text-slate-400 dark:text-slate-400 light:text-slate-600 text-sm">
+                    ផ្ញើសារមកខ្ញុំឥឡូវនេះ ខ្ញុំនឹងឆ្លើយតបវិញក្នុងពេលឆាប់ៗ!
+                </p>
+                <div class="w-16 h-1 bg-gradient-to-r from-sky-400 to-indigo-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-4">
+                
+                <!-- Contact Direct Info -->
+                <div class="lg:col-span-5 glass-card rounded-3xl p-6 sm:p-8 glow-border space-y-6 reveal">
+                    <h3 class="text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">ព័ត៌មានទំនាក់ទំនង</h3>
+                    <p class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                        ខ្ញុំតែងតែបើកចំហសម្រាប់ការពិភាក្សាអំពីគម្រោងថ្មីៗ គំនិតច្នៃប្រឌិត ឬឱកាសការងារសហការផ្សេងៗ។
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <a href="mailto:sopha.oussa@example.com" class="flex items-center gap-4 p-3.5 rounded-2xl bg-slate-800/40 dark:bg-slate-800/40 light:bg-slate-100 border border-slate-700/50 hover:border-sky-400 transition-colors">
+                            <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 block font-mono">អ៊ីមែល (Email)</span>
+                                <span class="text-sm font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800">sopha.oussa@example.com</span>
+                            </div>
+                        </a>
+
+                        <a href="https://t.me" target="_blank" class="flex items-center gap-4 p-3.5 rounded-2xl bg-slate-800/40 dark:bg-slate-800/40 light:bg-slate-100 border border-slate-700/50 hover:border-sky-400 transition-colors">
+                            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 block font-mono">តេឡេក្រាម (Telegram)</span>
+                                <span class="text-sm font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800">@sopha_oussa</span>
+                            </div>
+                        </a>
+
+                        <div class="flex items-center gap-4 p-3.5 rounded-2xl bg-slate-800/40 dark:bg-slate-800/40 light:bg-slate-100 border border-slate-700/50">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 block font-mono">ទីតាំង (Location)</span>
+                                <span class="text-sm font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800">រាជធានីភ្នំពេញ, កម្ពុជា</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-2">
+                        <span class="text-xs font-mono text-slate-400 uppercase tracking-wider block mb-3">បណ្តាញសង្គម (Social Networks)</span>
+                        <div class="flex gap-3">
+                            <a href="https://github.com" target="_blank" aria-label="GitHub Profile" class="p-3 rounded-xl bg-slate-800 hover:bg-sky-500 hover:text-white text-slate-300 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg></a>
+                            <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn Profile" class="p-3 rounded-xl bg-slate-800 hover:bg-sky-500 hover:text-white text-slate-300 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+                            <a href="https://telegram.org" target="_blank" aria-label="Telegram Channel" class="p-3 rounded-xl bg-slate-800 hover:bg-sky-500 hover:text-white text-slate-300 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.12.02-1.96 1.25-5.54 3.69-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.37-.49 1.02-.75 3.98-1.73 6.64-2.87 7.97-3.44 3.8-1.58 4.59-1.86 5.1-1.86.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.03.22z"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Contact Form -->
+                <div class="lg:col-span-7 glass-card rounded-3xl p-6 sm:p-8 glow-border reveal">
+                    <form id="contactForm" class="space-y-5">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label for="userName" class="block text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700 mb-1.5">ឈ្មោះរបស់អ្នក (Your Name)</label>
+                                <input type="text" id="userName" required placeholder="ឧ. សុខ ជា" class="w-full px-4 py-3 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 light:bg-white border border-slate-700/60 dark:border-slate-700/60 light:border-slate-300 text-slate-200 dark:text-slate-200 light:text-slate-900 focus:outline-none focus:border-sky-400 transition-colors text-sm" />
+                            </div>
+                            <div>
+                                <label for="userEmail" class="block text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700 mb-1.5">អ៊ីមែល (Email Address)</label>
+                                <input type="email" id="userEmail" required placeholder="name@example.com" class="w-full px-4 py-3 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 light:bg-white border border-slate-700/60 dark:border-slate-700/60 light:border-slate-300 text-slate-200 dark:text-slate-200 light:text-slate-900 focus:outline-none focus:border-sky-400 transition-colors text-sm" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="subject" class="block text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700 mb-1.5">ប្រធានបទ (Subject)</label>
+                            <input type="text" id="subject" required placeholder="ឧ. ការពិភាក្សាអំពីគម្រោង Web App" class="w-full px-4 py-3 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 light:bg-white border border-slate-700/60 dark:border-slate-700/60 light:border-slate-300 text-slate-200 dark:text-slate-200 light:text-slate-900 focus:outline-none focus:border-sky-400 transition-colors text-sm" />
+                        </div>
+
+                        <div>
+                            <label for="message" class="block text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700 mb-1.5">សាររបស់អ្នក (Message)</label>
+                            <textarea id="message" rows="4" required placeholder="សរសេរសាររបស់អ្នកនៅទីនេះ..." class="w-full px-4 py-3 rounded-xl bg-slate-900/60 dark:bg-slate-900/60 light:bg-white border border-slate-700/60 dark:border-slate-700/60 light:border-slate-300 text-slate-200 dark:text-slate-200 light:text-slate-900 focus:outline-none focus:border-sky-400 transition-colors text-sm resize-none"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-sky-500 via-indigo-600 to-emerald-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2">
+                            <span>ផ្ញើសារឥឡូវនេះ</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                        </button>
+
+                        <!-- Notification Alert Message Banner (Custom Modal Replacement) -->
+                        <div id="formAlert" class="hidden p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-medium flex items-center gap-3">
+                            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span>សាររបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ! សូមអរគុណសម្រាប់ការទាក់ទង។</span>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Project Detail Interactive Modal Overlay -->
+    <div id="projectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+        <div class="glass-card max-w-lg w-full rounded-3xl p-6 sm:p-8 space-y-6 glow-border relative animate-float">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-xl border border-slate-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="space-y-2">
+                <span id="modalBadge" class="text-xs font-mono text-sky-400 uppercase tracking-widest">ព័ត៌មានលម្អិត</span>
+                <h3 id="modalTitle" class="text-2xl font-bold text-slate-100 dark:text-slate-100 light:text-slate-900">ចំណងជើងគម្រោង</h3>
+            </div>
+            <p id="modalDesc" class="text-slate-300 dark:text-slate-300 light:text-slate-600 text-sm leading-relaxed">
+                ពិពណ៌នាអំពីគម្រោង...
+            </p>
+            <div class="space-y-2">
+                <span class="text-xs font-mono text-slate-400">បច្ចេកវិទ្យាប្រើប្រាស់:</span>
+                <div id="modalTags" class="flex flex-wrap gap-2"></div>
+            </div>
+            <div class="pt-4 flex justify-end gap-3 border-t border-slate-800">
+                <button onclick="closeModal()" class="px-5 py-2.5 rounded-xl border border-slate-700 text-xs font-semibold text-slate-300 hover:bg-slate-800">បិទ</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800/80 dark:border-slate-800/80 light:border-slate-200 bg-brand-darkBg/80 dark:bg-brand-darkBg/80 light:bg-slate-100 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            
+            <div class="flex items-center gap-2">
+                <span class="font-mono text-sky-400 font-bold text-base">&lt;S/&gt;</span>
+                <span class="text-xs text-slate-400">© ២០២៦ រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ <strong class="text-slate-200 dark:text-slate-200 light:text-slate-800">សុផា ឧស្សាហ៏</strong>.</span>
+            </div>
+
+            <div class="text-xs font-mono text-slate-500">
+                រចនាឡើងដោយប្រើ HTML5, Tailwind CSS &amp; Kantumruy Pro Font
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Vanilla JavaScript Interactions -->
+    <script>
+        // --- 1. Theme Toggle Logic (Dark / Light Mode) ---
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+        const htmlElement = document.documentElement;
+
+        // Check system preference or saved localStorage theme
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme === 'light' || (!savedTheme && !systemPrefersDark)) {
+            enableLightMode();
+        } else {
+            enableDarkMode();
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                enableLightMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+        function enableDarkMode() {
+            htmlElement.classList.add('dark');
+            htmlElement.classList.remove('light');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+            localStorage.setItem('theme', 'dark');
+        }
+
+        function enableLightMode() {
+            htmlElement.classList.add('light');
+            htmlElement.classList.remove('dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+            localStorage.setItem('theme', 'light');
+        }
+
+        // --- 2. Mobile Menu Toggle ---
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- 3. Scroll Reveal Animations & Sticky Header Shadow ---
+        const reveals = document.querySelectorAll('.reveal');
+        const navbar = document.getElementById('navbar');
+
+        function handleScroll() {
+            // Reveal on scroll logic
+            const windowHeight = window.innerHeight;
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+
+            // Header shadow enhancement on scroll
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-lg', 'shadow-black/20');
+            } else {
+                navbar.classList.remove('shadow-lg', 'shadow-black/20');
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        // Initial trigger
+        handleScroll();
+
+        // --- 4. Interactive Project Filtering ---
+        const filterBtns = document.querySelectorAll('.project-filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('active', 'bg-sky-500', 'text-white');
+                    b.classList.add('text-slate-300', 'border-slate-700');
+                });
+                
+                btn.classList.add('active', 'bg-sky-500', 'text-white');
+                btn.classList.remove('text-slate-300', 'border-slate-700');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // --- 5. Interactive Project Modal logic ---
+        const modal = document.getElementById('projectModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDesc = document.getElementById('modalDesc');
+        const modalTags = document.getElementById('modalTags');
+
+        function openModal(title, desc, tags) {
+            modalTitle.innerText = title;
+            modalDesc.innerText = desc;
+            modalTags.innerHTML = tags.map(tag => `<span class="px-2.5 py-1 rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs font-mono">${tag}</span>`).join('');
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        // Close modal on background click
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // --- 6. Form Submission Handling ---
+        const contactForm = document.getElementById('contactForm');
+        const formAlert = document.getElementById('formAlert');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            formAlert.classList.remove('hidden');
+            contactForm.reset();
+            setTimeout(() => {
+                formAlert.classList.add('hidden');
+            }, 6000);
+        });
+    </script>
+</body>
+</html>
